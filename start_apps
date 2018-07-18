@@ -1,0 +1,13 @@
+ fg(#404040)^i(/home/roh/.dzen/arch.xbm)^fg() urxvt
+ ^fg(#404040)^i(/home/roh/.dzen/fs_01.xbm)^fg() chromium
+ ^fg(#404040)^i(/home/roh/.dzen/diskette.xbm)^fg() zathura
+ ^fg(#404040)^i(/home/roh/.dzen/plug.xbm)^fg() lowriter
+ ^fg(#404040)^i(/home/roh/.dzen/stop.xbm)^fg() localc
+ ^fg(#404040)^i(/home/roh/.dzen/ac.xbm)^fg() loimpress
+ ^fg(#404040)^i(/home/roh/.dzen/fox.xbm)^fg() gimp
+ ^fg(#404040)^i(/home/roh/.dzen/mem.xbm)^fg() servoy
+----------
+ ^fg(#404040)^i(/home/roh/.dzen/play.xbm)^fg() gmrun
+ ^fg(#404040)^i(/home/roh/.dzen/full.xbm)^fg() systemctl suspend
+ ^fg(#404040)^i(/home/roh/.dzen/half.xbm)^fg() systemctl reboot
+ ^fg(#404040)^i(/home/roh/.dzen/empty.xbm)^fg() systemctl poweroff
