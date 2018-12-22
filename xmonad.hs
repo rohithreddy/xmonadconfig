@@ -54,7 +54,7 @@ import XMonad.Util.WorkspaceCompare
 import XMonad.Util.EZConfig
 import Graphics.X11.ExtraTypes.XF86
 
-import System.Taffybar.Support.PagerHints (pagerHints)
+--import System.Taffybar.Support.PagerHints (pagerHints)
 
 import System.Environment
 import System.Cmd
@@ -319,7 +319,7 @@ myStartupHook = do
 		spawn "/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
-		spawn "feh  --bg-scale  /home/rohith/Pictures/Photos@home/100D5100/DSC_1637.JPG"
+		spawn "feh  --bg-scale  /home/crash/Pictures/DSC_1640.JPG"
 		spawn "/usr/bin/kdeconnect-indicator"
 		spawn "/usr/lib/notification-daemon/notification-daemon"
 --		spawn "/usr/bin/tasque"
@@ -371,7 +371,7 @@ main = do
         	    forkIO $ (>> return ()) $ rawSystem "dbus-send" ["--session","--print-reply=string","--dest=org.gnome.SessionManager","/org/gnome/SessionManager","org.gnome.SessionManager.RegisterClient","string:xmonad","string:"++id]
         	    return ()
         	Nothing -> return ()
-	xmonad $ withUrgencyHook NoUrgencyHook $ pagerHints $ ewmh $ desktopConfig {
+	xmonad $ withUrgencyHook NoUrgencyHook $ ewmh $ desktopConfig {
 			     terminal           = "gnome-terminal"
                            , borderWidth        = 1
                            , normalBorderColor  = "black"
