@@ -196,14 +196,17 @@ myMouseBindings (XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 -- Tags/Workspaces
 -- clickable workspaces via dzen/xdotool
-myWorkspaces            :: [String]
-myWorkspaces            = clickable . (map dzenEscape) $ ["1","2","3","4","5","6","7","8","9"]
+-- myWorkspaces            :: [String]
+-- myWorkspaces            = clickable . (map dzenEscape) $ ["1","2","3","4","5","6","7","8","9"]
+--
+--   where clickable l     = [ "^ca(1,xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()" |
+--                             (i,ws) <- zip [1..] l,
+--                             let n = i ]
+--
 
-  where clickable l     = [ "^ca(1,xdotool key super+" ++ show (n) ++ ")" ++ ws ++ "^ca()" |
-                            (i,ws) <- zip [1..] l,
-                            let n = i ]
-
-
+--myWorkspaces    = ["\61612","\61899","\61947","\61635","\61502","\61501","\61705","\61564","\62150","\61872"]
+myWorkspaces    = ["\61612:1","\61899:2","\61947:3","\61635:4","\61502:5","\61501:6","\61705:7","\61564:8","\62150:9","\61872:0"]
+--myWorkspaces    = ["1","2","3","4","5","6","7","8","9","0"]
 
 -- shell prompt theme
 mySP = defaultXPConfig
@@ -305,27 +308,21 @@ myEventHook e = do
 
 myStartupHook = do
 		spawn "/usr/lib/gnome-settings-daemon/gsd-xsettings"
-		-- spawn "/usr/libexec/notification-daemon"
---		spawn "thermald --no-daemon --dbus-enable"
 		spawn "/usr/libexec/gnome-fallback-mount-helper"
---		spawn "/usr/local/bin/tomate"
 		spawn "/usr/bin/gnome-sound-applet"
---		spawn "whenjobs --daemon-start"
 		spawn "/usr/bin/nm-applet"
 		spawn "/usr/bin/synapse"
 		spawn "/usr/bin/start-pulseaudio-x11"
 		spawn "/usr/bin/gsettings-data-convert"
 		spawn "/usr/bin/xdg-user-dirs-gtk-update"
-		spawn "/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
+		--spawn "/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
 		spawn "feh  --bg-scale  /home/crash/Pictures/DSC_1640.JPG"
 		spawn "/usr/bin/kdeconnect-indicator"
+    -- spawn "/bin/bash $HOME/.config/polybar/launch.sh"
 		spawn "/usr/lib/notification-daemon/notification-daemon"
---		spawn "/usr/bin/tasque"
---		spawn "/bin/bash /root/scriptz/synclient.sh"
---		spawn "/usr/bin/zim"
---		spawn "/usr/local/bin/artha"
+		spawn "/home/crash/.config/polybar/launch.sh"
 
 
 -- tab theme
@@ -341,7 +338,7 @@ myTab = defaultTheme
     , urgentTextColor     = "yellow" }
 
 --myLogHook = ewmhDesktopsLogHookCustom scratchpadFilterOutWorkspace >> updatePointer Nearest
-myLogHook h = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn h }
+-- myLogHook h = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn h }
 
 myDzenStatus = "dzen2 -w '930' -ta 'l'" ++ myDzenStyle
 myDzenConky  = "conky -c ~/.xmonad/conkyrc | dzen2 -x '930' -w '760' -ta 'r'" ++ myDzenStyle
@@ -362,8 +359,9 @@ myDzenPP  = dzenPP
 
 
 main = do
-	status <- spawnPipe myDzenStatus    -- xmonad status on the left
-        conky  <- spawnPipe myDzenConky     -- conky stats on the right
+  -- spawn "$HOME/.config/polybar/autostart.sh"
+	-- status <- spawnPipe myDzenStatus    -- xmonad status on the left
+        -- conky  <- spawnPipe myDzenConky     -- conky stats on the right
 --	dzenStartMenu	<- spawnPipe myStartMenu
 	env <- getEnvironment
 	case lookup "DESKTOP_AUTOSTART_ID" env of
@@ -372,19 +370,17 @@ main = do
         	    return ()
         	Nothing -> return ()
 	xmonad $ withUrgencyHook NoUrgencyHook $ ewmh $ desktopConfig {
-			     terminal           = "gnome-terminal"
+			                       terminal           = "gnome-terminal"
                            , borderWidth        = 1
                            , normalBorderColor  = "black"
                            , focusedBorderColor = "orange"
                            , focusFollowsMouse  = True
                            , modMask            = mod4Mask
                            , keys               = myKeys
-			   , mouseBindings      = myMouseBindings
-			   , workspaces = myWorkspaces
-			   , startupHook	= myStartupHook
+			                     , mouseBindings      = myMouseBindings
+			                     , workspaces         = myWorkspaces
+                           , startupHook	= myStartupHook
                            , layoutHook         =  smartBorders $avoidStruts $ myLayout
-                           , manageHook         =  manageDocks <+> myManageHook
-							 <+> manageHook defaultConfig
+                           , manageHook         =  manageDocks <+> myManageHook <+> manageHook defaultConfig
                            , handleEventHook    = myEventHook <+> fullscreenEventHook <+> handleEventHook desktopConfig
-			   , logHook 		= myLogHook status
 			   }
