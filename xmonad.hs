@@ -1,5 +1,6 @@
 import XMonad
 import XMonad.Config.Desktop
+import XMonad.Config.Gnome
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import Data.Monoid
@@ -11,7 +12,6 @@ import XMonad.Actions.UpdatePointer
 import XMonad.Actions.WindowGo
 import XMonad.Actions.GridSelect
 import qualified XMonad.Actions.Submap as SM
-
 
 
 import XMonad.Hooks.DynamicLog
@@ -232,9 +232,12 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Pidgin"         --> doFloat
     , className =? "Empathy"         --> doFloat
+    , className =? "Gnome-calculator"         --> doFloat
     , title     =? "glxgears"       --> doFloat
     , title 	=? "inferno"	    --> doFloat
     , title     =? "Contact List"   --> doFloat
+    , title     =? "Downloads"   --> doFloat
+    , title     =? "Save As..."   --> doFloat
     , className =? "Empathy"        --> doFloat
     , className =? "Gnome-panel"    --> doIgnore
     , className =? "XVkbd"          --> doIgnore
@@ -248,7 +251,7 @@ myManageHook = composeAll
 
 -- Grid Select Section
 --gsconfig2 colorizer = (buildDefaultGSConfig colorizer) { gs_cellheight = 60 ,gs_cellwidth = 250, gs_font = "xft:Droid Sans:pixelsize=20",gs_cellpadding = 5 }
-gsconfig1  = defaultGSConfig  { gs_cellheight = 60 ,gs_cellwidth = 250, gs_font = "xft:Noto Sans:pixelsize=20",gs_cellpadding = 5 }
+gsconfig1  = defaultGSConfig  { gs_cellheight = 60 ,gs_cellwidth = 250, gs_font = "xft:Noto Sans:pixelsize=30",gs_cellpadding = 5 }
 
 
 -- | A green monochrome colorizer based on window classimport XMonad.Layout.IM
@@ -305,12 +308,8 @@ myEventHook e = do
 
 myStartupHook = do
 		spawn "/usr/lib/gnome-settings-daemon/gsd-xsettings"
-		-- spawn "/usr/libexec/notification-daemon"
---		spawn "thermald --no-daemon --dbus-enable"
 		spawn "/usr/libexec/gnome-fallback-mount-helper"
---		spawn "/usr/local/bin/tomate"
 		spawn "/usr/bin/gnome-sound-applet"
---		spawn "whenjobs --daemon-start"
 		spawn "/usr/bin/nm-applet"
 		spawn "/usr/bin/synapse"
 		spawn "/usr/bin/start-pulseaudio-x11"
@@ -320,12 +319,10 @@ myStartupHook = do
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
 		spawn "feh  --bg-scale  /home/crash/Pictures/DSC_1640.JPG"
+		spawn "/usr/bin/xfce4-power-manager"
 		spawn "/usr/bin/kdeconnect-indicator"
 		spawn "/usr/lib/notification-daemon/notification-daemon"
---		spawn "/usr/bin/tasque"
---		spawn "/bin/bash /root/scriptz/synclient.sh"
---		spawn "/usr/bin/zim"
---		spawn "/usr/local/bin/artha"
+
 
 
 -- tab theme
@@ -365,13 +362,7 @@ main = do
 	status <- spawnPipe myDzenStatus    -- xmonad status on the left
         conky  <- spawnPipe myDzenConky     -- conky stats on the right
 --	dzenStartMenu	<- spawnPipe myStartMenu
-	env <- getEnvironment
-	case lookup "DESKTOP_AUTOSTART_ID" env of
-        	Just id -> do
-        	    forkIO $ (>> return ()) $ rawSystem "dbus-send" ["--session","--print-reply=string","--dest=org.gnome.SessionManager","/org/gnome/SessionManager","org.gnome.SessionManager.RegisterClient","string:xmonad","string:"++id]
-        	    return ()
-        	Nothing -> return ()
-	xmonad $ withUrgencyHook NoUrgencyHook $ ewmh $ desktopConfig {
+	xmonad $ withUrgencyHook NoUrgencyHook $ ewmh $ gnomeConfig {
 			     terminal           = "gnome-terminal"
                            , borderWidth        = 1
                            , normalBorderColor  = "black"
