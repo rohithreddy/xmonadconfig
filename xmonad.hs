@@ -320,8 +320,11 @@ myStartupHook = do
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
 		spawn "feh  --bg-scale  /home/crash/Pictures/DSC_1640.JPG"
 		spawn "/usr/bin/xfce4-power-manager"
+		spawn "/usr/bin/caffeine-indicator"
 		spawn "/usr/bin/kdeconnect-indicator"
 		spawn "/usr/lib/notification-daemon/notification-daemon"
+		spawn "/usr/bin/synclient TapButton3=2"
+
 
 
 
