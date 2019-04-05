@@ -147,7 +147,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. controlMask, xK_n   ), sendMessage Reset)
 
     --Grid Select
-    , ((modMask , xK_g			), goToSelected  $ gsconfig1 )
+    , ((modMask , xK_g			), goToSelected  $ gsconfig2 myColorizer )
 
     -- toggle focused window fullscreen
     , ((modMask,               xK_m     ), sendMessage (Toggle "Full"))
@@ -250,8 +250,8 @@ myManageHook = composeAll
     , manageDocks ] <+> manageHook defaultConfig
 
 -- Grid Select Section
---gsconfig2 colorizer = (buildDefaultGSConfig colorizer) { gs_cellheight = 60 ,gs_cellwidth = 250, gs_font = "xft:Droid Sans:pixelsize=20",gs_cellpadding = 5 }
-gsconfig1  = defaultGSConfig  { gs_cellheight = 60 ,gs_cellwidth = 250, gs_font = "xft:Noto Sans:pixelsize=30",gs_cellpadding = 5 }
+gsconfig2 colorizer = (buildDefaultGSConfig colorizer) { gs_cellheight = 60 ,gs_cellwidth = 300, gs_font = "xft:Noto Sans:pixelsize=18",gs_cellpadding = 5 }
+--gsconfig1  = defaultGSConfig  { gs_cellheight = 60 ,gs_cellwidth = 250, gs_font = "xft:Noto Sans:pixelsize=20",gs_cellpadding = 5 }
 
 
 -- | A green monochrome colorizer based on window classimport XMonad.Layout.IM
