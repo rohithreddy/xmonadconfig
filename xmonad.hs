@@ -268,7 +268,7 @@ myColorizer = colorRangeFromClassName
 
 
 appFontXft :: String
-appFontXft = "xft:Noto Sans:pixelsize=11"
+appFontXft = "xft:Noto Sans:pixelsize=12"
 --appFontXft = concat [ "xft:"
                      --,"Sans:"
 					 --,"pixelsize=11:"
@@ -307,7 +307,8 @@ myEventHook e = do
 
 
 myStartupHook = do
-		spawn "/usr/lib/gnome-settings-daemon/gsd-xsettings"
+		spawn "/usr/libexec/gsd-xsettings"
+		spawn "/usr/libexec/gsd-media-keys"
 		spawn "/usr/libexec/gnome-fallback-mount-helper"
 		spawn "/usr/bin/gnome-sound-applet"
 		spawn "/usr/bin/nm-applet"
@@ -315,14 +316,15 @@ myStartupHook = do
 		spawn "/usr/bin/start-pulseaudio-x11"
 		spawn "/usr/bin/gsettings-data-convert"
 		spawn "/usr/bin/xdg-user-dirs-gtk-update"
-		spawn "/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
+		spawn "/usr/bin/trayer-srg --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
 		spawn "feh  --bg-scale  /home/crash/Pictures/DSC_1640.JPG"
 		spawn "/usr/bin/xfce4-power-manager"
 		spawn "/usr/bin/caffeine-indicator"
+		spawn "/usr/libexec/polkit-gnome-authentication-agent-1"
 		spawn "/usr/bin/kdeconnect-indicator"
-		spawn "/usr/lib/notification-daemon/notification-daemon"
+--		spawn "/usr/lib/notification-daemon/notification-daemon"
 		spawn "/usr/bin/synclient TapButton3=2"
 
 
@@ -378,7 +380,7 @@ main = do
 			   , startupHook	= myStartupHook
                            , layoutHook         =  smartBorders $avoidStruts $ myLayout
                            , manageHook         =  manageDocks <+> myManageHook
-							 <+> manageHook defaultConfig
-                           , handleEventHook    = myEventHook <+> fullscreenEventHook <+> handleEventHook desktopConfig
+							 <+> manageHook gnomeConfig
+                           , handleEventHook    = myEventHook <+> fullscreenEventHook <+> handleEventHook gnomeConfig
 			   , logHook 		= myLogHook status
 			   }
