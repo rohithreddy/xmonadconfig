@@ -313,6 +313,7 @@ myStartupHook = do
 		spawn "/usr/bin/gnome-sound-applet"
 		spawn "/usr/bin/nm-applet"
 		spawn "/usr/bin/synapse"
+--		spawn "/usr/bin/albert"
 		spawn "/usr/bin/start-pulseaudio-x11"
 		spawn "/usr/bin/gsettings-data-convert"
 		spawn "/usr/bin/xdg-user-dirs-gtk-update"
@@ -345,9 +346,16 @@ myTab = defaultTheme
 --myLogHook = ewmhDesktopsLogHookCustom scratchpadFilterOutWorkspace >> updatePointer Nearest
 myLogHook h = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn h }
 
+
+
+
+
+-- "-*-noto sans-medium-r-normal-*-12-120-*-*-p-*-iso8859-*"
+
+
 myDzenStatus = "dzen2 -w '930' -ta 'l'" ++ myDzenStyle
 myDzenConky  = "conky -c ~/.xmonad/conkyrc | dzen2 -x '930' -w '760' -ta 'r'" ++ myDzenStyle
-myDzenStyle  = " -h '22' -fg '#777777' -bg '#222222' -fn 'Noto Sans:size=11'"
+myDzenStyle  = " -h '22' -fg '#777777' -bg '#222222' -fn '-monotype-noto sans mono medium-medium-r-normal--13-120-0-0-m-0-iso8859-1'"
 --myStartMenu = "/home/roh/.xmonad/start /home/roh/.xmonad/start_apps"
 
 myDzenPP  = dzenPP
@@ -377,7 +385,7 @@ main = do
                            , keys               = myKeys
 			   , mouseBindings      = myMouseBindings
 			   , workspaces = myWorkspaces
-			   , startupHook	= myStartupHook
+			   , startupHook	= myStartupHook >>  setWMName "LG3D"
                            , layoutHook         =  smartBorders $avoidStruts $ myLayout
                            , manageHook         =  manageDocks <+> myManageHook
 							 <+> manageHook gnomeConfig
