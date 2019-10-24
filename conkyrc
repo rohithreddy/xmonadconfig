@@ -2,7 +2,7 @@ conky.config = {
     background=false,
     out_to_x=false,
     out_to_console=true,
-    update_interval=1.0,
+    update_interval=30.0,
     total_run_times=0,
     use_spacer=none,
 --Ícones: ${font Conky Icons by Carelli:size=14}
@@ -13,10 +13,13 @@ default_color = '#FFFFFF',
 }
 
 conky.text = [[
-^fg(orange)^i(/home/rohith/.xmonad/xbm/temp.xbm)^fg() ^fg(\#999999)${hwmon 1 temp 1}°C^fg()  \
-^fg(\#999999)${loadavg 1}^fg()  \
-^fg(orange)^i(/home/rohith/.xmonad/xbm/cpu.xbm)^fg() ^fg(\#999999)${cpu cpu1}% ^fg()   ^fg(\#aaaaaa)${freq_g 1}GHz^fg()   \
-^fg(orange)^i(/home/rohith/.xmonad/xbm/mem.xbm)^fg() ^fg(\#999999)${memperc}%^fg() \
-^fg(orange)^i(/home/rohith/.xmonad/xbm/bat_full_02.xbm)^fg() ^fg(\#999999)${if_existing /sys/class/power_supply/BAT0/present}${battery_short BAT0} (${battery_time BAT0})${else}AC${endif} \
-^fg(orange)^i(/home/rohith/.xmonad/xbm/clock.xbm)^fg() ^fg(\#999999)${time %a %b %d}^fg() ^fg(orange)${time %H:%M:%S}^fg() ^fg(orange)^i(/home/rohith/.xmonad/xbm/wifi_01.xbm)^fg() ^fg(\#999999) ${addr wlp1s0}^fg()
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/temp.xbm)^fg() ^fg(\#ff5500)${hwmon 1 temp 1}°C^fg() \
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/pacman.xbm)^fg() ^fg(\#ff5500)${loadavg 1}^fg() \
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/cpu.xbm)^fg() ^fg(\#ff5500)${cpu cpu1}% ^fg()\
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/shroom.xbm)^fg() ^fg(\#ff5500)${freq_g 1}GHz^fg() \
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/mem.xbm)^fg() ^fg(\#ff5500)${memperc}%^fg() \
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/bat_full_01.xbm)^fg() ^fg(\#ff5500)${if_existing /sys/class/power_supply/BAT1/present}${battery_short BAT1} (${battery_time BAT1})${else}AC${endif} \
+^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/clock.xbm)^fg() ^fg(\#ff5500)${time %a %b %d}^fg() \
+^fg(\#ff5500)${time %H:%M}^fg() ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/wifi_02.xbm)^fg() ^fg(\#ff5500)${addr wlp2s0}^fg()
 ]]
+

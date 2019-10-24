@@ -66,7 +66,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- terminals
     [ ((modMask,                 xK_Return), spawn $ XMonad.terminal conf)
-    , ((modMask .|. shiftMask,   xK_Return), spawn "tilix")
+    , ((modMask .|. shiftMask,   xK_Return), spawn "urxvt")
 
     -- launcher
     , ((modMask .|. shiftMask,   xK_p), spawn "gmrun")
@@ -219,8 +219,8 @@ mySP = defaultXPConfig
     , historySize       = 1000 }
 
 -- layouts
-myLayout = toggleLayouts (noBorders Full) $ tiled ||| Circle ||| simpleFloat ||| Grid  ||| layoutHints (tabbed shrinkText myTab) ||| mosaic 2 [3,2] |||  spiral (6/7) |||  ThreeColMid nmaster (delta) (ratio)
-  where
+myLayout = toggleLayouts (noBorders Full) $ tiled ||| Circle ||| ThreeColMid nmaster (delta) (ratio) ||| Grid  ||| mosaic 2 [3,2] |||  spiral (6/7) ||| layoutHints (tabbed shrinkText myTab)
+    where
         tiled   = ResizableTall nmaster delta ratio []
         nmaster = 1
         delta   = 3/100
@@ -232,6 +232,7 @@ myManageHook = composeAll
     , className =? "Gimp"           --> doFloat
     , className =? "Pidgin"         --> doFloat
     , className =? "Empathy"         --> doFloat
+--    , className =? "Gnome-terminal"         -->  doShift (myWorkspaces !! 8)
     , className =? "Gnome-calculator"         --> doFloat
     , title     =? "glxgears"       --> doFloat
     , title 	=? "inferno"	    --> doFloat
@@ -269,16 +270,7 @@ myColorizer = colorRangeFromClassName
 
 appFontXft :: String
 appFontXft = "xft:Noto Sans:pixelsize=12"
---appFontXft = concat [ "xft:"
-                     --,"Sans:"
-					 --,"pixelsize=11:"
-					 --,"weight=regular:"
-					 --,"width=semicondensed:"
-					 --,"dpi=96:hinting=true:"
-					 --,"hintstyle=hintslight:"
-					 --,"antialias=true:"
-					 --,"rgba=rgb:"
-					 --,"lcdfilter=lcdlight"]
+
 -- Color of current window title in xmobar.--#FFB6B0
 xmobarTitleColor = "red"
 
@@ -320,7 +312,7 @@ myStartupHook = do
 		spawn "/usr/bin/trayer-srg --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
-		spawn "feh  --bg-scale  /home/crash/Pictures/DSC_1640.JPG"
+		spawn "feh  --bg-scale  /home/badc/Pictures/DSC_1640.JPG"
 		spawn "/usr/bin/xfce4-power-manager"
 		spawn "/usr/bin/caffeine-indicator"
 		spawn "/usr/libexec/polkit-gnome-authentication-agent-1"
@@ -355,17 +347,17 @@ myLogHook h = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn h }
 
 myDzenStatus = "dzen2 -w '930' -ta 'l'" ++ myDzenStyle
 myDzenConky  = "conky -c ~/.xmonad/conkyrc | dzen2 -x '930' -w '760' -ta 'r'" ++ myDzenStyle
-myDzenStyle  = " -h '22' -fg '#777777' -bg '#222222' -fn '-monotype-noto sans mono medium-medium-r-normal--13-120-0-0-m-0-iso8859-1'"
+myDzenStyle  = " -h '22' -fg '#777777' -bg '#2d2d2d' -fn '-monotype-noto sans mono medium-medium-r-normal--13-120-0-0-m-0-iso8859-1'"
 --myStartMenu = "/home/roh/.xmonad/start /home/roh/.xmonad/start_apps"
 
 myDzenPP  = dzenPP
-    { ppCurrent = dzenColor "#3399ff" "" . wrap " " " "
-    , ppHidden  = dzenColor "#dddddd" "" . wrap " " " "
-    , ppHiddenNoWindows = dzenColor "#777777" "" . wrap " " " "
+    { ppCurrent = dzenColor "#00d5ff" "" . wrap " " " "
+    , ppHidden  = dzenColor "#C7F09F" "" . wrap " " " "
+    , ppHiddenNoWindows = dzenColor "#ff5500" "" . wrap " " " "
     , ppUrgent  = dzenColor "#ff0000" "" . pad . dzenStrip
     , ppSep     = "     "
-    , ppLayout  = dzenColor "orange" "#303030" . wrap "^ca(1,xdotool key super+space)· " " ·^ca()"
-    , ppTitle   = dzenColor "orange" ""
+    , ppLayout  = dzenColor "#4811a4" "#ff5500" . wrap "^ca(1,xdotool key super+space)· " " ·^ca()"
+    , ppTitle   = dzenColor "#ff5500" "#2d2d2d"
                     . wrap "^ca(1,xdotool key super+k)^ca(2,xdotool key super+shift+c)"
                            "                          ^ca()^ca()" . dzenEscape
     }
