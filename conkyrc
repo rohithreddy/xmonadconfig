@@ -13,13 +13,13 @@ default_color = '#FFFFFF',
 }
 
 conky.text = [[
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/temp.xbm)^fg() ^fg(\#ff5500)${hwmon 1 temp 1}°C^fg() \
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/pacman.xbm)^fg() ^fg(\#ff5500)${loadavg 1}^fg() \
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/cpu.xbm)^fg() ^fg(\#ff5500)${cpu cpu1}% ^fg()\
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/shroom.xbm)^fg() ^fg(\#ff5500)${freq_g 1}GHz^fg() \
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/mem.xbm)^fg() ^fg(\#ff5500)${memperc}%^fg() \
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/bat_full_01.xbm)^fg() ^fg(\#ff5500)${if_existing /sys/class/power_supply/BAT1/present}${battery_short BAT1} (${battery_time BAT1})${else}AC${endif} \
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/clock.xbm)^fg() ^fg(\#ff5500)${time %a %b %d}^fg() \
-^fg(\#ff5500)${time %H:%M}^fg() ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/wifi_02.xbm)^fg() ^fg(\#ff5500)${addr wlp2s0}^fg()
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/temp.xbm)^fg() ^fg(\#ff5500)${hwmon 1 temp 1}°C^fg() \
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/pacman.xbm)^fg() ^fg(\#ff5500)${loadavg 1}^fg() \
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/cpu.xbm)^fg() ^fg(\#ff5500)${cpu cpu1}% ^fg()\
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/shroom.xbm)^fg() ^fg(\#ff5500)${freq_g 1}GHz^fg() \
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/mem.xbm)^fg() ^fg(\#ff5500)${memperc}%^fg() \
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/bat_full_01.xbm)^fg() ^fg(\#ff5500)${if_existing /sys/class/power_supply/BAT0/present}${battery_short BAT0} (${battery_time BAT0})${else}AC${endif} \
+^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/clock.xbm)^fg() ^fg(\#ff5500)${time %a %b %d}^fg() \
+^fg(\#ff5500)${time %H:%M}^fg() ^fg(\#00d5ff)^i(/home/max/.xmonad/xbm/wifi_02.xbm)^fg() ^fg(\#ff5500)${addr wlp2s0}^fg()
 ]]
 

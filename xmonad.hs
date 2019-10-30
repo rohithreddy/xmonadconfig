@@ -299,8 +299,8 @@ myEventHook e = do
 
 
 myStartupHook = do
-		spawn "/usr/libexec/gsd-xsettings"
-		spawn "/usr/libexec/gsd-media-keys"
+		spawn "/usr/lib/gnome-settings-daemon/gsd-xsettings"
+		spawn "/usr/lib/gnome-settings-daemon/gsd-media-keys"
 		spawn "/usr/libexec/gnome-fallback-mount-helper"
 		spawn "/usr/bin/gnome-sound-applet"
 		spawn "/usr/bin/nm-applet"
@@ -309,7 +309,7 @@ myStartupHook = do
 		spawn "/usr/bin/start-pulseaudio-x11"
 		spawn "/usr/bin/gsettings-data-convert"
 		spawn "/usr/bin/xdg-user-dirs-gtk-update"
-		spawn "/usr/bin/trayer-srg --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
+		spawn "/usr/bin/trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
 		spawn "feh  --bg-scale  /home/badc/Pictures/DSC_1640.JPG"
