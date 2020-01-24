@@ -226,7 +226,7 @@ theFont = "xft:Monospace-13"
 -- simpleFloat def {fontName = theFont} |||
 
 -- layouts 
-myLayout = tiled ||| Circle ||| ThreeColMid nmaster (delta) (ratio) ||| Grid |||  layoutHints (tabbed shrinkText myTab) ||| simpleFloat' shrinkText myTab |||  spiral (6/7)  ||| mosaic 2 [3,2]
+myLayout = tiled ||| Circle ||| simpleFloat' shrinkText myTab ||| ThreeColMid nmaster (delta) (ratio) ||| Grid |||  layoutHints (tabbed shrinkText myTab) |||  spiral (6/7)  ||| mosaic 2 [3,2]
     where
         tiled   = ResizableTall nmaster delta ratio []
         nmaster = 1
