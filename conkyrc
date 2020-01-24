@@ -2,7 +2,7 @@ conky.config = {
     background=false,
     out_to_x=false,
     out_to_console=true,
-    update_interval=30.0,
+    update_interval=1.0,
     total_run_times=0,
     use_spacer=none,
 --Ícones: ${font Conky Icons by Carelli:size=14}
@@ -19,7 +19,7 @@ conky.text = [[
 ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/shroom.xbm)^fg() ^fg(\#ff5500)${freq_g 1}GHz^fg() \
 ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/mem.xbm)^fg() ^fg(\#ff5500)${memperc}%^fg() \
 ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/bat_full_01.xbm)^fg() ^fg(\#ff5500)${if_existing /sys/class/power_supply/BAT1/present}${battery_short BAT1} (${battery_time BAT1})${else}AC${endif} \
-^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/clock.xbm)^fg() ^fg(\#ff5500)${time %a %b %d}^fg() \
-^fg(\#ff5500)${time %H:%M}^fg() ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/wifi_02.xbm)^fg() ^fg(\#ff5500)${addr wlp2s0}^fg()
+^ca(1,/home/badc/.xmonad/dzen-cal)^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/clock.xbm)^fg() ^fg(\#ff5500)${time %a %b %d}^fg() \
+^fg(\#ff5500)${time %H:%M:%S}^fg()^ca() ^fg(\#00d5ff)^i(/home/badc/.xmonad/xbm/wifi_02.xbm)^fg() ^fg(\#ff5500)${addr wlp2s0}^fg()
 ]]
 

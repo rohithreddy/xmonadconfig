@@ -24,10 +24,13 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.ScreenCorners
 
 import XMonad.Layout.LayoutHints
+import XMonad.Layout.SimpleDecoration
+import XMonad.Layout.SimplestFloat
 import XMonad.Layout.IM
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ResizableTile
-import XMonad.Layout.Tabbed
+import XMonad.Layout.Simplest
+import XMonad.Layout.Decoration
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.WindowArranger
 import XMonad.Layout.Mosaic
@@ -66,7 +69,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- terminals
     [ ((modMask,                 xK_Return), spawn $ XMonad.terminal conf)
-    , ((modMask .|. shiftMask,   xK_Return), spawn "urxvt")
+    , ((modMask .|. shiftMask,   xK_Return), spawn "konsole")
 
     -- launcher
     , ((modMask .|. shiftMask,   xK_p), spawn "gmrun")
@@ -87,7 +90,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- browser
     , ((modMask,               xK_f     ), runOrRaise
-        "firefox" (className =? "Firefox"))
+        "firefox-bin" (className =? "Firefox"))
      -- browser
     , ((modMask,               xK_c     ), runOrRaise
         "google-chrome-stable"(className =? "Chrome"))
@@ -218,8 +221,12 @@ mySP = defaultXPConfig
     --, autoComplete      = Just 1000
     , historySize       = 1000 }
 
--- layouts
-myLayout = toggleLayouts (noBorders Full) $ tiled ||| Circle ||| ThreeColMid nmaster (delta) (ratio) ||| Grid  ||| mosaic 2 [3,2] |||  spiral (6/7) ||| layoutHints (tabbed shrinkText myTab)
+theFont :: String
+theFont = "xft:Monospace-13"
+-- simpleFloat def {fontName = theFont} |||
+
+-- layouts 
+myLayout = tiled ||| Circle ||| ThreeColMid nmaster (delta) (ratio) ||| Grid |||  layoutHints (tabbed shrinkText myTab) ||| simpleFloat' shrinkText myTab |||  spiral (6/7)  ||| mosaic 2 [3,2]
     where
         tiled   = ResizableTall nmaster delta ratio []
         nmaster = 1
@@ -248,7 +255,7 @@ myManageHook = composeAll
     , isFullscreen 		    --> doFullFloat
     --                                      x y w h
     , scratchpadManageHook $ W.RationalRect 0 0 1 0.42
-    , manageDocks ] <+> manageHook defaultConfig
+    , manageDocks ] <+> manageHook def
 
 -- Grid Select Section
 gsconfig2 colorizer = (buildDefaultGSConfig colorizer) { gs_cellheight = 60 ,gs_cellwidth = 300, gs_font = "xft:Noto Sans:pixelsize=18",gs_cellpadding = 5 }
@@ -270,6 +277,8 @@ myColorizer = colorRangeFromClassName
 
 appFontXft :: String
 appFontXft = "xft:Noto Sans:pixelsize=12"
+-- appFontXft = "xft:Noto Sans:pixelsize=12"
+
 
 -- Color of current window title in xmobar.--#FFB6B0
 xmobarTitleColor = "red"
@@ -280,12 +289,11 @@ xmobarCurrentWorkspaceColor = "red"
 
 
 -- decoration theme
-myDeco = defaultTheme
+myDeco = def
     { activeColor         = "orange"
     , inactiveColor       = "#222222"
     , urgentColor         = "yellow"
---    , activeBorderColor   = "orange"
-    , activeBorderColor   = "blue"
+    , activeBorderColor   = "orange"
     , inactiveBorderColor = "#222222"
     , urgentBorderColor   = "yellow"
     , activeTextColor     = "orange"
@@ -305,26 +313,26 @@ myStartupHook = do
 		spawn "/usr/bin/gnome-sound-applet"
 		spawn "/usr/bin/nm-applet"
 		spawn "/usr/bin/synapse"
---		spawn "/usr/bin/albert"
 		spawn "/usr/bin/start-pulseaudio-x11"
 		spawn "/usr/bin/gsettings-data-convert"
 		spawn "/usr/bin/xdg-user-dirs-gtk-update"
 		spawn "/usr/bin/trayer-srg --edge top --align right --SetDockType true --SetPartialStrut true --expand true --width 230 --widthtype pixel  --transparent true --height 22"
 		spawn "/usr/bin/compton"
 		spawn "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh"
-		spawn "feh  --bg-scale  /home/badc/Pictures/DSC_1640.JPG"
 		spawn "/usr/bin/xfce4-power-manager"
 		spawn "/usr/bin/caffeine-indicator"
 		spawn "/usr/libexec/polkit-gnome-authentication-agent-1"
 		spawn "/usr/bin/kdeconnect-indicator"
 --		spawn "/usr/lib/notification-daemon/notification-daemon"
 		spawn "/usr/bin/synclient TapButton3=2"
+	        spawn "xsetroot -cursor_name left_ptr"
+		spawn "/home/badc/Documents/repos/scriptz/random_wallpaper.sh"
 
 
 
 
 -- tab theme
-myTab = defaultTheme
+myTab = def
     { activeColor         = "black"
     , inactiveColor       = "black"
     , urgentColor         = "yellow"
@@ -332,7 +340,9 @@ myTab = defaultTheme
     , inactiveBorderColor = "#222222"
     , urgentBorderColor   = "black"
     , activeTextColor     = "orange"
-    , inactiveTextColor   = "#222222"
+    ,fontName             = "xft:Noto Sans:pixelsize=14"
+    , inactiveTextColor   = "white"
+    , decoHeight          = 24
     , urgentTextColor     = "yellow" }
 
 --myLogHook = ewmhDesktopsLogHookCustom scratchpadFilterOutWorkspace >> updatePointer Nearest
@@ -347,7 +357,7 @@ myLogHook h = dynamicLogWithPP $ myDzenPP { ppOutput = hPutStrLn h }
 
 myDzenStatus = "dzen2 -w '930' -ta 'l'" ++ myDzenStyle
 myDzenConky  = "conky -c ~/.xmonad/conkyrc | dzen2 -x '930' -w '760' -ta 'r'" ++ myDzenStyle
-myDzenStyle  = " -h '22' -fg '#777777' -bg '#2d2d2d' -fn '-monotype-noto sans mono medium-medium-r-normal--13-120-0-0-m-0-iso8859-1'"
+myDzenStyle  = " -h '22' -fg '#777777' -bg '#222222' -fn '-monotype-noto sans mono medium-medium-r-normal--13-120-0-0-m-0-iso8859-1'"
 --myStartMenu = "/home/roh/.xmonad/start /home/roh/.xmonad/start_apps"
 
 myDzenPP  = dzenPP
@@ -357,7 +367,7 @@ myDzenPP  = dzenPP
     , ppUrgent  = dzenColor "#ff0000" "" . pad . dzenStrip
     , ppSep     = "     "
     , ppLayout  = dzenColor "#4811a4" "#ff5500" . wrap "^ca(1,xdotool key super+space)· " " ·^ca()"
-    , ppTitle   = dzenColor "#ff5500" "#2d2d2d"
+    , ppTitle   = dzenColor "#ff5500" "#222222"
                     . wrap "^ca(1,xdotool key super+k)^ca(2,xdotool key super+shift+c)"
                            "                          ^ca()^ca()" . dzenEscape
     }
@@ -367,7 +377,7 @@ main = do
 	status <- spawnPipe myDzenStatus    -- xmonad status on the left
         conky  <- spawnPipe myDzenConky     -- conky stats on the right
 --	dzenStartMenu	<- spawnPipe myStartMenu
-	xmonad $ withUrgencyHook NoUrgencyHook $ ewmh $ gnomeConfig {
+	xmonad $ withUrgencyHook NoUrgencyHook $ ewmh desktopConfig {
 			     terminal           = "gnome-terminal"
                            , borderWidth        = 1
                            , normalBorderColor  = "black"
@@ -378,9 +388,9 @@ main = do
 			   , mouseBindings      = myMouseBindings
 			   , workspaces = myWorkspaces
 			   , startupHook	= myStartupHook >>  setWMName "LG3D"
-                           , layoutHook         =  smartBorders $avoidStruts $ myLayout
+                           , layoutHook         =  smartBorders $ avoidStruts $ desktopLayoutModifiers $ toggleLayouts (noBorders Full) $ myLayout
                            , manageHook         =  manageDocks <+> myManageHook
-							 <+> manageHook gnomeConfig
-                           , handleEventHook    = myEventHook <+> fullscreenEventHook <+> handleEventHook gnomeConfig
+							 <+> manageHook desktopConfig
+                           , handleEventHook    = myEventHook <+> fullscreenEventHook <+> handleEventHook desktopConfig
 			   , logHook 		= myLogHook status
 			   }
