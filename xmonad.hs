@@ -323,7 +323,7 @@ myStartupHook = do
 		spawn "/usr/bin/caffeine-indicator"
 		spawn "/usr/libexec/polkit-gnome-authentication-agent-1"
 		spawn "/usr/bin/kdeconnect-indicator"
---		spawn "/usr/lib/notification-daemon/notification-daemon"
+		spawn "/usr/bin/dunst"
 		spawn "/usr/bin/synclient TapButton3=2"
 	        spawn "xsetroot -cursor_name left_ptr"
 		spawn "/home/badc/Documents/repos/scriptz/random_wallpaper.sh"
